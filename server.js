@@ -34,6 +34,15 @@ app.get('/', async(req,res) => {
     return res.render('index');
 })
 
+app.get('/blogs', async(req, res) => {
+    return res.render('blogs-home')
+})
+
+
+app.get('/blog/:id', async(req, res) => {
+    return res.render('blogs-single')
+})
+
 
 
 app.listen(process.env.PORT, ()=>{
