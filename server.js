@@ -44,6 +44,11 @@ app.get('/blog/:id', async(req, res) => {
 })
 
 
+app.get('/contact', async(req, res) => {
+    return res.render('contact')
+})
+
+
 
 app.listen(process.env.PORT, ()=>{
     console.log(`Open Website on http://${process.env.HOST}:${process.env.PORT}`)
