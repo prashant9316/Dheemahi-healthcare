@@ -492,6 +492,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 .main-area {
     padding: 150px 0 350px;
     background-color: #b0b0b0;
+    clear: white;
     background-image: url("../images/banner-bg-1.jpg");
     background-repeat: no-repeat;
     background-position: center;
