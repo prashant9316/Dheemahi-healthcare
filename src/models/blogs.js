@@ -14,10 +14,13 @@ const BlogSchema = new mongoose.Schema({
     description: {
         type: String
     }, 
-    markdown: {
+    markdown1: {
         type: String, 
         required: true
     }, 
+    markdown2: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -31,14 +34,25 @@ const BlogSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    sanitizedHtml: {
+    sanitizedHtml1: {
         type: String,
         required: true
+    },
+    sanitizedHtml2: {
+        type: String
     },
     imageLink: {
         type: String,
         default: "https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
-    }
+    },
+    blogImgLink1: {
+        type: String,
+        default: "https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
+    },
+    blogImgLink2: {
+        type: String,
+        default: "https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
+    },
 })
 
 BlogSchema.pre('validate', function (next) {
@@ -47,7 +61,8 @@ BlogSchema.pre('validate', function (next) {
             strict: true})
     }
     if(this.markdown){
-        this.sanitizedHtml = dompurify.sanitize(marked(this.markdown))
+        this.sanitizedHtml1 = dompurify.sanitize(marked(this.markdown1))
+        this.sanitizedHtml2 = dompurify.sanitize(marked(this.markdown2))
     }
     next()
 })

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Page Title -->
+    <title>Blogs @ dheemahi</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/x-icon">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/animate-3.7.0.css">
+    <link rel="stylesheet" href="assets/css/font-awesome-4.7.0.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-4.1.3.min.css">
+    <link rel="stylesheet" href="assets/css/owl-carousel.min.css">
+    <link rel="stylesheet" href="assets/css/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="assets/css/linearicons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <%- include('./../common/header.ejs') %>
+    <!-- Banner Area Starts -->
+    <section class="banner-area other-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Blogs</h1>
+                    <a href="/">Home</a> <span>|</span> <a href="/blogs">Blog Home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Area End -->
+    
+    <!--================Blog Categorie Area =================-->
+    <section class="blog_categorie_area">
+        <!--     <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="categories_post">
+                        <img src="assets/images/blog/cat-post/cat-post-3.jpg" alt="post">
+                        <div class="categories_details">
+                            <div class="categories_text">
+                                <a href="blog-details.html"><h5>Social Life</h5></a>
+                                <div class="border_line"></div>
+                                <p>Enjoy your social life together</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="categories_post">
+                        <img src="assets/images/blog/cat-post/cat-post-2.jpg" alt="post">
+                        <div class="categories_details">
+                            <div class="categories_text">
+                                <a href="blog-details.html"><h5>Politics</h5></a>
+                                <div class="border_line"></div>
+                                <p>Be a part of politics</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="categories_post">
+                        <img src="assets/images/blog/cat-post/cat-post-1.jpg" alt="post">
+                        <div class="categories_details">
+                            <div class="categories_text">
+                                <a href="blog-details.html"><h5>Food</h5></a>
+                                <div class="border_line"></div>
+                                <p>Let the food be finished</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </section>
+    <!--================Blog Categorie Area =================-->
+    
+    <!--================Blog Area =================-->
+    <section class="blog_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="blog_left_sidebar">
+                        <h2 class="mb-4">Create New Blog</h2>
+                        <form action="/create" method="post">
+                            <div class="mt-10">
+                                <label for="Title">Title of the Blog</label>
+                                <input type="text" name="title" placeholder="Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Title'" required class="single-input">
+                            </div>
+                            <div class="mt-10">
+                                <label for="Title">Blog Heading Image Link</label>
+                                <input type="text" name="link" placeholder="Header Image Link" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Heading Image LInk'" required class="single-input">
+                            </div>
+                            <div class="mt-10">
+                                <label for="description">Description of the Blog</label>
+                                <input type="text" name="title" placeholder="Description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Description'" required class="single-input">
+                            </div>
+                            <div class="mt-10">
+                                <label for="Title">Blog Content 1</label>
+                                <textarea class="single-textarea" placeholder="Blog Content 1" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Blog Content 1'" required></textarea>
+                            </div>
+                            <div class="mt-10">
+                                <label for="Title">Blog Quote</label>
+                                <input type="text" name="title" placeholder="Blog Quote" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Blog Quote'" required class="single-input">
+                            </div>
+                            <div class="mt-10">
+                                <label for="Title">Blog Inside Image Link 1</label>
+                                <input type="text" name="link" placeholder="Inside Image Link 1" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Inside Image Link 1'" required class="single-input">
+                            </div>
+                            <div class="mt-10">
+                                <label for="Title">Blog Inside Image Link 2</label>
+                                <input type="text" name="link" placeholder="Inside Image Link 2" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Inside Image Link 2'" required class="single-input">
+                            </div>
+                            <div class="mt-10">
+                                <label for="Title">Blog Content 2</label>
+                                <textarea class="single-textarea" placeholder="Blog Content 2" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Blog Content 2'" required></textarea>
+                            </div>
+                            
+                        </form>
+
+                    </div>
+                </div>
+                
+
+                <%- include('./../blog-aside.ejs') %>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+    <%- include('./../common/footer.ejs') %>
+
+</body>
+</html>

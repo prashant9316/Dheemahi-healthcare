@@ -9,26 +9,41 @@ const { JSDOM } = require('jsdom')
 const dompurify = createDomPurify(new JSDOM().window)
 
 router.get('/blogs', async(req, res) => {
-    let articles = await Blogs.find().sort({ createdAt: 'desc'})
-    var time = new Date()
-    if(articles.length==0){
-        articles = [
-          {
-            title: 'How to book a appointment',
-            description: 'you will learn how to book an appointment',
-            slug: "book an appointment",
-            createdAt: new Date().toLocaleDateString(),
-            author: 'Prashant Mishra',
-            sanitizedHtml: '<h1>No Blogs</h1>',
-            imageLink: "https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
-          }
-        ]
+    try {
+        console.log("Trying to fetch all the blogs")
+        let articles = await Blogs.find().sort({ createdAt: 'desc'})
+        var time = new Date()
+        if(articles.length==0){
+            articles = [
+            {
+                title: 'How to book a appointment',
+                description: 'you will learn how to book an appointment',
+                slug: "book an appointment",
+                createdAt: new Date().toLocaleDateString(),
+                author: 'Prashant Mishra',
+                sanitizedHtml: '<h1>No Blogs</h1>',
+                imageLink: "https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
+            }
+            ]
+        }
+        res.render('blogs-home',{
+            blogs: articles
+        })
+    } catch (error) {
+        console.log(error)
+        return res.redirect('/')
     }
-    res.render('blogs-home',{
-        user: req.user,
-        title: 'Blogs',
-        articles: articles
-    })
+    
+})
+
+
+router.get('/create-new', async(req, res) => {
+    try {
+        return res.render('admin/create-blog')
+    } catch (error) {
+        console.log(error)
+        return res.redirect('/')
+    }
 })
 
 
@@ -41,10 +56,10 @@ router.get('/blogs', async(req, res) => {
 //     })
 // })
 
-// router.post('/new', isAdmin, async(req, res, next) => {
-//     req.article = new Article()
-//     next()
-// }, saveArticleAndReturn('new'))
+router.post('blog/new', async(req, res, next) => {
+    req.article = new Article()
+    next()
+}, saveArticleAndReturn('new'))
 
 
 
@@ -87,10 +102,10 @@ router.get('/blogs', async(req, res) => {
 //     }
 // })
 
-router.get('/view/:slug', isLoggedIn, async (req, res) => {
+router.get('blog/view/:slug', async (req, res) => {
     const article = await Blogs.findOne({ slug: req.params.slug })
     if(article == null) return res.status(400).send("Wrong Route")
-    return res.render('blog_page', { article: article, user: req.user, title: ["Blogs", `${article.title}`] })
+    return res.render('blog-single', { article: article, user: req.user, title: ["Blogs", `${article.title}`] })
 })
 
 // router.get('/edit/:slug', isAdmin, async (req, res) => {
@@ -99,7 +114,7 @@ router.get('/view/:slug', isLoggedIn, async (req, res) => {
 //     return res.render('edit_blog_page', { article: article, user: req.user, title: ['Blogs','Edit Blog'] })
 // })
 
-router.get('/:slug', async (req, res) => {
+router.get('blog/:slug', async (req, res) => {
     const article = await Blogs.findOne({ slug: req.params.slug }) 
     if(article == null) return res.json({
         status: 400,
