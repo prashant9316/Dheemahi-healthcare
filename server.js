@@ -73,6 +73,71 @@ app.get('/contact', async(req, res) => {
 })
 
 
+const courses = [
+    {
+        courseName: "Academic Success Blueprint",
+        courseSubTitle: "Become super clear about your academic and professional goals to become super successful and ultra achiever in life",
+        imgLink: "https://img-b.udemycdn.com/course/240x135/4338986_fac9_2.jpg",
+        courseLink: "https://www.udemy.com/course/academic-success-blueprint/",
+        About: "You need to be a success seeker and willing to create lots of achievements in life",
+        price: "₹385",
+        duration: "1.5 hours",
+        rating: "4.8",
+        date: "Octorber 2021"
+    },
+    {
+        courseName: "Beginner's Guide to Become Super Achiever",
+        courseSubTitle: "Transform Your Self into 'Outcome Oriented Professional'",
+        imgLink: "https://img-b.udemycdn.com/course/480x270/4364492_f037.jpg",
+        About: "",
+        price: "₹385",
+        duration: "1.5 hours",
+        rating: "5.0",
+        date: "November 2021", 
+        courseLink: "https://www.udemy.com/course/become-super-achiever-in-2-days/"
+    },
+    {
+        courseName: "Beginner's Guide to Complete Your Assignments",
+        courseSubTitle: "An Easy Yet Effective Approach",
+        imgLink: "https://img-b.udemycdn.com/course/480x270/4390718_3f5d.jpg",
+        About: "",
+        price: "₹385",
+        duration: "1.5 hours",
+        rating: "0.0",
+        date: "December 2021",
+        courseLink: "https://www.udemy.com/course/beginners-guide-to-complete-your-school-assignments/"
+    },
+    {
+        courseName: "One thing to become super successful",
+        courseSubTitle: "Give your self a new perspective of life",
+        imgLink: "https://img-b.udemycdn.com/course/480x270/4454174_6dff_2.jpg",
+        About: "",
+        price: "₹385",
+        duration: "1.5 hours",
+        rating: "0.0",
+        date: "December 2021",
+        courseLink: "https://www.udemy.com/course/one-thing-to-become-super-successful/"
+    },
+    // {
+    //     courseName: "",
+    //     courseSubTitle: "",
+    //     imgLink: "",
+    //     About: "",
+    //     price: "",
+    //     duration: "",
+    //     rating: "",
+    //     date: ""
+    // }
+
+]
+
+app.get('/courses', async(req, res) => {
+    return res.render('courses', {
+        courses
+    })
+})
+
+
 
 app.listen(process.env.PORT, ()=>{
     console.log(`Open Website on http://${process.env.HOST}:${process.env.PORT}`)
