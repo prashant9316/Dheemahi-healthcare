@@ -510,6 +510,17 @@ body.mobile-nav-active #mobile-nav-toggle {
     position: relative;
 }
 
+
+.courses-banner-area {
+    padding: 150px 0 350px;
+    background-color: #b0b0b0;
+    background-image: url("../images/courses-banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
 @media (min-width: 768px) and (max-width: 991.98px) {
     .banner-area {
         padding: 280px 0
