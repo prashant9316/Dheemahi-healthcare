@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Blog Details</h1>
-                    <a href="index.html">Home</a> <span>|</span> <a href="blog-details.html">Blog Details</a>
+                    <a href="/">Home</a> <span>|</span> <a href="#">Blog Details</a>
                 </div>
             </div>
         </div>
@@ -46,60 +46,47 @@
                     <div class="single-post row">
                         <div class="col-lg-12">
                             <div class="feature-img">
-                                <img class="img-fluid" src="/assets/images/blog-details/feature-img1.jpg" alt="">
+                                <img class="img-fluid" src="<%= blog.imageLink %>" alt="">
                             </div>									
                         </div>
                         <div class="col-lg-3  col-md-3">
                             <div class="blog_info text-right">
                                 <div class="post_tag">
-                                    <a href="#">Health,</a>
-                                    <a class="active" href="#">Technology,</a>
-                                    <a href="#">Lifestyle</a>
+                                    <a href="#">Health</a>
+                                    <!-- <a class="active" href="#">Technology,</a>
+                                    <a href="#">Lifestyle</a> -->
                                 </div>
                                 <ul class="blog_meta list">
-                                        <li><a href="#">Dr. Sanjay<i class="fa fa-user-o"></i></a></li>
-                                        <li><a href="#">9th May, 2021<i class="fa fa-calendar-o"></i></a></li>
+                                        <li><a href="#"><%= blog.author %><i class="fa fa-user-o"></i></a></li>
+                                        <li><a href="#"><%= blog.createdAt %>, 9th May, 2021<i class="fa fa-calendar-o"></i></a></li>
                                         <!-- <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li>
                                         <li><a href="#">06 Comments<i class="fa fa-comment-o"></i></a></li> -->
                                     </ul>
-                                <ul class="social-links">
+                                <!-- <ul class="social-links">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fa fa-github"></i></a></li>
                                     <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-9 blog_details">
-                            <h3>This is the title of the Blog!!!</h3>
-                            <p class="excert">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction.
-                            </p>
-                            <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                            </p>
-                            <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                            </p>
+                            <h3><%= blog.title %></h3>
+                            <%- blog.sanitizedHtml1 %>
                         </div>
                         <div class="col-lg-12">
                             <div class="quotes">
-                                This part is basically mentioned quotes related to the Article published!
+                                <%= blog.quote %>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <img class="img-fluid" src="/assets/images/blog-details/post-img1.jpg" alt="">
+                                    <img class="img-fluid" src="<%= blog.blogImgLink1 %>" alt="">
                                 </div>
                                 <div class="col-6">
-                                    <img class="img-fluid" src="/assets/images/blog-details/post-img2.jpg" alt="">
+                                    <img class="img-fluid" src="<%= blog.blogImgLink2 %>" alt="">
                                 </div>	
                                 <div class="col-lg-12 my-4">
-                                    <p>
-                                        MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-                                    </p>
-                                    <p>
-                                        MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-                                    </p>											
+                                    <%- blog.sanitizedHtml2 %>
                                 </div>									
                             </div>
                         </div>

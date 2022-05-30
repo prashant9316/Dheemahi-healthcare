@@ -117,7 +117,41 @@
                                     </div>
                                 </div>
                             </div>
+                           
                         </article>
+
+                        <% for(var i = 0; i < blogs.length; i++) { %>
+                            <article class="row blog_item">
+                                <div class="col-md-3">
+                                    <div class="blog_info text-right">
+                                         <!-- <div class="post_tag">
+                                             <a href="#">Food,</a>
+                                             <a class="active" href="#">Technology,</a>
+                                             <a href="#">Politics,</a>
+                                             <a href="#">Lifestyle</a>
+                                         </div> -->
+                                         <ul class="blog_meta list">
+                                             <li><a href="#"><%= blogs[i].author %><i class="fa fa-user-o"></i></a></li>
+                                             <li><a href="#"><%= blogs[i].createdAt.toLocaleDateString() %>,12th May, 2021<i class="fa fa-calendar-o"></i></a></li>
+                                             <!-- <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li> -->
+                                             <!-- <li><a href="#">06 Comments<i class="fa fa-comment-o"></i></a></li> -->
+                                         </ul>
+                                     </div>
+                                </div>
+                                
+                                 <div class="col-md-9">
+                                     <div class="blog_post">
+                                         <img src="<%= blogs[i].imageLink %>" alt="" >
+                                         <div class="blog_details">
+                                             <a href="/blog/<%= blogs[i].slug %>"><h4><%= blogs[i].title %></h4></a>
+                                             <p><%= blogs[i].description %></p>
+                                             <a href="/blog/<%= blogs[i].slug %>" class="template-btn">View More</a>
+                                         </div>
+                                     </div>
+                                 </div>
+                                
+                             </article>
+                        <% } %>
                       
                        
                         <!-- <nav class="blog-pagination justify-content-center d-flex">

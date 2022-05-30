@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const marked = require('marked')
+const { marked } = require('marked')
 const slugify = require('slugify')
 const createDomPurify = require('dompurify')
 const { JSDOM } = require('jsdom')
@@ -45,6 +45,9 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         default: "https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
     },
+    quote: {
+        type: String,
+    },
     blogImgLink1: {
         type: String,
         default: "https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
@@ -60,8 +63,10 @@ BlogSchema.pre('validate', function (next) {
         this.slug = slugify(this.title, {lower: true, 
             strict: true})
     }
-    if(this.markdown){
+    if(this.markdown1){
         this.sanitizedHtml1 = dompurify.sanitize(marked(this.markdown1))
+    }
+    if(this.markdown2){
         this.sanitizedHtml2 = dompurify.sanitize(marked(this.markdown2))
     }
     next()

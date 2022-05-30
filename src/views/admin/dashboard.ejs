@@ -45,7 +45,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="/" class="navbar-brand mx-4 mb-3">
+                <a href="/admin" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Admin Panel</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -58,6 +58,8 @@
                         <span>Admin</span>
                     </div>
                 </div>
+
+                
                 <!-- <div class="navbar-nav w-100">
                     <a href="/" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
@@ -172,11 +174,29 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <!-- <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a> -->
-                            <a href="#" class="dropdown-item" onclick="">Log Out</a>
+                            <a href="#" class="dropdown-item" id="logout">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
+
+            <script>
+                 document.getElementById('logout').addEventListener("click", async function(event) {
+                    console.log("Logged Out")
+                    event.preventDefault()
+                    removeCookies()
+                    window.location="/"
+                    })
+
+                    function removeCookies() {
+                        var res = document.cookie;
+                        var multiple = res.split(";");
+                        for(var i = 0; i < multiple.length; i++) {
+                        var key = multiple[i].split("=");
+                        document.cookie = key[0]+" =; expires = Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                        }
+                    }
+            </script>
             <!-- Navbar End -->
 
 
@@ -188,7 +208,7 @@
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Blogs</p>
-                                <h6 class="mb-0">1</h6>
+                                <h6 class="mb-0"><%= data.blogs.length %></h6>
                             </div>
                         </div>
                     </div>
@@ -201,12 +221,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-sm-6 col-xl-3">
+                    <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Testimonials</p>
+                                <h6 class="mb-0"><%= data.testimonials.length %></h6>
                             </div>
                         </div>
                     </div>
@@ -214,11 +234,11 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Contact Queries</p>
+                                <h6 class="mb-0"><%= data.contacts.length %></h6>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <!-- Sale & Revenue End -->
@@ -227,33 +247,270 @@
           
 
 
-            <!-- Recent Sales Start -->
+            <!-- Number of Blogs -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Blogs</h6>
-                        <a href="">Show All</a>
+                        <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
+                                    <!-- <th scope="col"><input class="form-check-input" type="checkbox"></th> -->
+                                    <th scope="col">S. No.</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Name Of Blog</th>
-                                    <!-- <th scope="col">Customer</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Status</th> -->
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Desc</th>
+                                    <th scope="col">Autor</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>12th May, 2021</td>
+                                    <td>0</td>
+                                    <td>12/5/2021</td>
                                     <td>8 Steps to Academic Success</td>
-                                    <td><a class="btn btn-sm btn-primary" href="/blog/1">View</a></td>
+                                    <td>8 Steps to Academic Success</td>
+                                    <td>Dr. Sanjay Kumar</td>
+                                    <td><a class="btn btn-sm btn-info m-1" target="_blank" href="/blog/1">View</a></td>
                                 </tr>
+                                <% for(var i = 0; i < data.blogs.length; i++) {%>
+                                    <tr>
+                                        <td><%= i+1 %></td>
+                                        <td><%= data.blogs[i].createdAt.toLocaleDateString() %></td>
+                                        <td><%= data.blogs[i].title %></td>
+                                        <td><%= data.blogs[i].description %></td>
+                                        <td><%= data.blogs[i].author %></td>
+                                        <td>
+                                            <a class="btn btn-sm btn-info m-1" target="_blank" href="/blog/<%= data.blogs[i].slug %>">View</a>
+                                            <!-- <a class="btn btn-sm btn-success m-1" href="/blog/edit/<%= data.blogs[i].slug %>">Edit</a> -->
+                                            <a class="btn btn-sm btn-danger m-1" id="delete-blog-<%= i %>" href="#">Delete</a>
+
+                                        </td>
+                                    </tr>
+                                    <script>
+                                        document.getElementById('delete-blog-<%= i %>').addEventListener('click', async(e) => {
+                                            e.preventDefault();
+                                            // alert("Are you Sure You want to delete this blog?")
+                                            const result = confirm("Are you sure you want to delete Blog Number <%= i+1 %>?")
+                                            console.log(result)
+                                            if(result == true){
+                                                await fetch('/admin/delete-blog/<%= data.blogs[i]._id %>', {
+                                                    method: "POST"
+                                                }).then(data => data.json())
+                                                .then(res => {
+                                                    console.log(res)
+                                                    if(res.code == 200){
+                                                        alert("Blog Deleted Successfully")
+                                                        window.location.href = '/admin';
+                                                    } else {
+                                                        alert("Failed to delete the blog!")
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    </script>
+                                <% } %>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Number of Blogs -->
+             <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Testimonials</h6>
+                        <!-- <a href="">Show All</a> -->
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <!-- <th scope="col"><input class="form-check-input" type="checkbox"></th> -->
+                                    <th scope="col">S. No.</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Testimonial</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i = 0; i < data.testimonials.length; i++) { %>
+                                    <tr>
+                                        <td><%= i+1 %></td>
+                                        <td><%= data.testimonials[i].name %></td>
+                                        <td><%- data.testimonials[i].testimony %></td>
+                                        <td>
+                                            <!-- <a class="btn btn-sm btn-info m-1" href="#">View</a> -->
+                                            <!-- <a class="btn btn-sm btn-info m-1" href="#">Edit</a> -->
+                                            <a class="btn btn-sm btn-danger m-1" id="delete-testimony-<%= i %>" href="#">Delete</a>
+
+                                        </td>
+                                    </tr>
+
+                                    <script>
+                                        document.getElementById('delete-testimony-<%= i %>').addEventListener('click', async(e) => {
+                                            e.preventDefault();
+                                            // alert("Are you Sure You want to delete this blog?")
+                                            const result = confirm("Are you sure you want to delete Testimony Number <%= i+1 %>?")
+                                            console.log(result)
+                                            if(result == true){
+                                                await fetch('/admin/delete-testimony/<%= data.testimonials[i]._id %>', {
+                                                    method: "POST"
+                                                }).then(data => data.json())
+                                                .then(res => {
+                                                    console.log(res)
+                                                    if(res.code == 200){
+                                                        alert("Successfully Removed!")
+                                                        window.location.href = '/admin';
+                                                        
+                                                    } else {
+                                                        alert("failed to do the task!")
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    </script>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+             <!-- Contact Forms -->
+             <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Contact Forms Queries
+                        </h6>
+                        <!-- <a href="">Show All</a> -->
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+
+                                <tr class="text-dark">
+                                    <!-- <th scope="col"><input class="form-check-input" type="checkbox"></th> -->
+                                    <th scope="col">S. No.</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Query</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i = 0; i < data.contacts.length; i++ ){ %>
+                                    <tr>
+                                        <td><%= i+1 %></td>
+                                        <td><%= data.contacts[i].createdAt.toLocaleDateString() %></td>
+                                        <td><%= data.contacts[i].name %></td>
+                                        <td><%= data.contacts[i].phoneNumber %></td>
+                                        <td><%= data.contacts[i].email %></td>
+                                        <td><%- data.contacts[i].query %></td>
+                                        <td><%= data.contacts[i].status %> </td>
+                                        <td><a class="btn btn-sm btn-info m-1" id="udpate-query-read-<%= i %>" href="#">Mark as Read</a> <a class="btn btn-sm btn-warning m-1" id="udpate-query-important-<%= i %>" href="#">Mark as Important</a> <a class="btn btn-sm btn-danger m-1" id="delete-query-<%= i %>" href="#">Delete</a></td>
+
+                                    </tr>
+
+                                    <script>
+                                        document.getElementById('udpate-query-read-<%= i %>').addEventListener('click', async(e) => {
+                                            e.preventDefault();
+                                            // alert("Are you Sure You want to delete this blog?")
+                                            const result = confirm("Mark as Read Query Number <%= i+1 %>?")
+                                            console.log(result)
+                                            if(result == true){
+                                                await fetch('/admin/update-query-status/<%= data.contacts[i]._id %>', {
+                                                    method: "POST",
+                                                    body: JSON.stringify({
+                                                        status: 'read',
+                                                    }), 
+                                                    headers: {
+                                                        "Content-Type": "application/json"
+                                                    }
+                                                }).then(data => data.json())
+                                                .then(res => {
+                                                    console.log(res)
+                                                    if(res.code == 200){
+                                                        alert("Successfully updated!")
+                                                        window.location.href = '/admin';
+                                                        
+                                                    } else {
+                                                        alert("failed to do the task!")
+                                                    }
+                                                })
+                                            }
+                                        })
+
+
+
+                                        document.getElementById('udpate-query-important-<%= i %>').addEventListener('click', async(e) => {
+                                            e.preventDefault();
+                                            // alert("Are you Sure You want to delete this blog?")
+                                            const result = confirm("Mark as Important Query Number <%= i+1 %>?")
+                                            console.log(result)
+                                            if(result == true){
+                                                await fetch('/admin/update-query-status/<%= data.contacts[i]._id %>', {
+                                                    method: "POST",
+                                                    body: JSON.stringify({
+                                                        status: 'important',
+                                                    }), 
+                                                    headers: {
+                                                        "Content-Type": "application/json"
+                                                    }
+                                                }).then(data => data.json())
+                                                .then(res => {
+                                                    console.log(res)
+                                                    if(res.code == 200){
+                                                        alert("Successfully updated!")
+                                                        window.location.href = '/admin';
+                                                        
+                                                    } else {
+                                                        alert("failed to do the task!")
+                                                    }
+                                                })
+                                            }
+                                        })
+
+
+
+
+
+                                        document.getElementById('delete-query-<%= i %>').addEventListener('click', async(e) => {
+                                            e.preventDefault();
+                                            // alert("Are you Sure You want to delete this blog?")
+                                            const result = confirm("Are you sure you want to delete Query Number <%= i+1 %>?")
+                                            console.log(result)
+                                            if(result == true){
+                                                await fetch('/admin/delete-query/<%= data.contacts[i]._id %>', {
+                                                    method: "POST"
+                                                }).then(data => data.json())
+                                                .then(res => {
+                                                    console.log(res)
+                                                    if(res.code == 200){
+                                                        alert("Successfully Removed!")
+                                                        window.location.href = '/admin';
+                                                        
+                                                    } else {
+                                                        alert("failed to do the task!")
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    </script>
+                                <% } %> 
                                 
                             </tbody>
                         </table>
@@ -261,7 +518,7 @@
                 </div>
             </div>
             
-            
+
             <!-- Recent Sales End -->
 
 
@@ -274,25 +531,66 @@
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Blog Title</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="title">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Blog Img Link</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="text">
-                                    </div>
-                                </div>
-                                
-                                <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Content</label>
-                                    <div class="col-sm-10">
-                                        <textarea name="" id=""  class="form-control" rows="10"></textarea>
-                                        <!-- <input type="text" class="form-control" id="text"> -->
+                                        <input type="text" class="form-control" id="title" placeholder="Title of the Blog">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Blog Author</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="author" placeholder="Author of the Blog" value="Dr. Sanjay Kumar">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Blog Img Link</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="imageLink" value="Banner Image Link for this Blog">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="desc" placeholder="Description of the Blog">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Content (Part 1 - Required) </label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" id="mark1"  class="form-control" rows="7"></textarea>
+                                        <!-- <input type="text" class="form-control" id="text"> -->
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Content (Part 2 - Optional) </label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" id="mark2"  class="form-control" rows="7"></textarea>
+                                        <!-- <input type="text" class="form-control" id="text"> -->
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Blog inside Image Links</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Inside Image Link 1" id="imageLink1">
+                                    </div>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Blog inside Image Links</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Inside Image Link 2" id="imageLink2">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Quote</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="quote" placeholder="A Quote that can be mentioned !">
+                                    </div>
+                                </div>
+
+                                <!-- <div class="row mb-3">
                                     <legend class="col-form-label col-sm-2 pt-0">Status</legend>
                                     <div class="col-sm-10">
                                         <div class="form-check">
@@ -302,7 +600,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <button type="submit" id="create-new" class="btn btn-primary">Create New</button>
                             </form>
                         </div>
@@ -311,7 +609,31 @@
                     <script>
                         document.getElementById('create-new').addEventListener('click', async(e) =>{
                             e.preventDefault()
-                            alert("submitting new blog!")
+                            await fetch('/admin/create-new-blog', {
+                                method: "POST", 
+                                body: JSON.stringify({
+                                    title: document.getElementById('title').value,
+                                    description: document.getElementById('desc').value,
+                                    author: document.getElementById('author').value,
+                                    imageLink: document.getElementById('imageLink').value,
+                                    imageLink1: document.getElementById('imageLink1').value,
+                                    imageLink2: document.getElementById('imageLink2').value,
+                                    markdown1: document.getElementById('mark1').value,
+                                    markdown2: document.getElementById('mark2').value,
+                                    quote: document.getElementById('quote').value
+                                }),
+                                headers: {
+                                    "Content-Type": "application/json"
+                                }
+                            }).then(res => res.json())
+                            .then(res => {
+                                if(res.code == 200){
+                                    alert("Blog Added Successfully!")
+                                    window.location.href = '/admin';
+                                } else {
+                                    alert("Failed to Create Blog!")
+                                }
+                            })
                         })
                     </script>
                     
@@ -322,17 +644,68 @@
 
 
 
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Add New Testimonial</h6>
+                            <form>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Person Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="test-name">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Testimony</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" id="test-body"  class="form-control" rows="10" ></textarea>
+                                        <!-- <input type="text" class="form-control" id="text"> -->
+                                    </div>
+                                </div>
+
+                                <button type="submit" id="new-testimonial-btn" class="btn btn-primary">Add New Testimonial</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.getElementById('new-testimonial-btn').addEventListener('click', async(e) =>{
+                            e.preventDefault()
+                            await fetch('/admin/new-testimony', {
+                                method: "POST", 
+                                body: JSON.stringify({
+                                    name: document.getElementById('test-name').value,
+                                    content: document.getElementById('test-body').value
+                                }),
+                                headers: {
+                                    "Content-Type": "application/json"
+                                }
+                            }).then(res => res.json())
+                            .then(res => {
+                                if(res.code == 200){
+                                    alert("Testimony Added Successfully!")
+                                    window.location.href = '/admin';
+                                } else {
+                                    alert("Failed to Add Testimony!")
+                                }
+                            })
+                        })
+                    </script>
+                    
+
+
 
            <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4" style="bottom: 0;">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="https://drsanjaykumar.in">Dr Sanjay Kumar</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">Developers Infotech Pvt. Ltd.</a>
+                            Designed By <a href="https://developersinfotech.com">Developers Infotech Pvt. Ltd.</a>
                         </br>
                        
                         </div>

@@ -42,8 +42,13 @@ mongoose.connect(process.env.MONGO_URI,
 
 
 app.get('/', async(req,res) => {
-    return res.render('index');
+    const {data, error} = await getAllIndexDetails()
+    return res.render('index', {
+        data
+    });
 })
+
+
 
 // app.get('/blogs', async(req, res) => {
 //     return res.render('blogs-home')
@@ -53,6 +58,10 @@ app.get('/', async(req,res) => {
 // app.get('/blog/:id', async(req, res) => {
 //     return res.render('blogs-single')
 // })
+
+const Blogs = require('./src/models/blogs')
+const Testimonials = require('./src/models/testimonials')
+const ContactForm = require('./src/models/contactForm')
 
 
 app.get('/blog/1', async(req, res) => {
@@ -65,9 +74,19 @@ app.get('/blog/2', async(req, res) => {
     return res.render('blogs-single')
 })
 
-const BlogRouter = require('./src/routes/blogs')
+const BlogIndexRouter = require('./src/routes/blogs')
+const ApiRouter = require('./src/routes/apiRoutes')
 const { verifyAdmin } = require('./src/services/verifyAdmin')
-app.use('/', BlogRouter)
+const { loginController } = require('./src/controllers/loginController')
+const { getAllAdminDetails } = require('./src/services/adminService')
+const { getAllIndexDetails } = require('./src/services/indexService')
+const { showOneBlog } = require('./src/controllers/blogs')
+app.use('/', BlogIndexRouter)
+app.get('/blog/:id', showOneBlog)
+
+
+
+app.use('/admin', ApiRouter)
 
 
 app.get('/contact', async(req, res) => {
@@ -80,38 +99,14 @@ app.get('/admin/login', async(req, res) => {
 })
 
 
-app.post('/login', async(req, res) => {
-    try {
-        console.log(req.body.email)
-        console.log(req.body.password)
-        let email = req.body.email;
-        let pass = req.body.password;
-        console.log(email, pass)
-        if(email == 'admin@drsanjaykumar.in' && pass == 'Admin@123'){
-            return res.json({
-                AuthToken: process.env.AuthToken,
-                code: 200,
-                status: 200
-            })
-        }else {
-            return res.json({
-                error: 'Failed to login!',
-                code: 401,
-                status: 401
-            })
-        }
-    } catch (error) {
-        return res.json({
-            error: "Server error!",
-            code: 500,
-            status: 500
-        })
-    }
-})
+app.post('/login', loginController)
 
 
 app.get('/admin', verifyAdmin, async(req, res) => {
-    return res.render('admin/dashboard')
+    const {data, error} = await getAllAdminDetails()
+    return res.render('admin/dashboard',{
+        data
+    })
 })
 
 
@@ -125,7 +120,8 @@ const courses = [
         price: "₹385",
         duration: "1.5 hours",
         rating: "4.8",
-        date: "Octorber 2021"
+        date: "Octorber 2021",
+        couponCode: ''
     },
     {
         courseName: "Beginner's Guide to Become Super Achiever",
@@ -136,7 +132,8 @@ const courses = [
         duration: "1.5 hours",
         rating: "5.0",
         date: "November 2021", 
-        courseLink: "https://www.udemy.com/course/become-super-achiever-in-2-days/"
+        courseLink: "https://www.udemy.com/course/become-super-achiever-in-2-days/",
+        couponCode: ''
     },
     {
         courseName: "Beginner's Guide to Complete Your Assignments",
@@ -147,7 +144,8 @@ const courses = [
         duration: "1.5 hours",
         rating: "0.0",
         date: "December 2021",
-        courseLink: "https://www.udemy.com/course/beginners-guide-to-complete-your-school-assignments/"
+        courseLink: "https://www.udemy.com/course/beginners-guide-to-complete-your-school-assignments/",
+        couponCode: ''
     },
     {
         courseName: "One thing to become super successful",
@@ -158,7 +156,8 @@ const courses = [
         duration: "1.5 hours",
         rating: "0.0",
         date: "December 2021",
-        courseLink: "https://www.udemy.com/course/one-thing-to-become-super-successful/"
+        courseLink: "https://www.udemy.com/course/one-thing-to-become-super-successful/",
+        couponCode: ''
     },
     // {
     //     courseName: "",
