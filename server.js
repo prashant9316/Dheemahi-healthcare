@@ -121,7 +121,7 @@ const courses = [
         duration: "1.5 hours",
         rating: "4.8",
         date: "Octorber 2021",
-        couponCode: ''
+        couponCode: '2A339CEC7C3AB84D9088'
     },
     {
         courseName: "Beginner's Guide to Become Super Achiever",
@@ -133,7 +133,7 @@ const courses = [
         rating: "5.0",
         date: "November 2021", 
         courseLink: "https://www.udemy.com/course/become-super-achiever-in-2-days/",
-        couponCode: ''
+        couponCode: 'EE647DB23FF211C0EFC2'
     },
     {
         courseName: "Beginner's Guide to Complete Your Assignments",
@@ -145,7 +145,7 @@ const courses = [
         rating: "0.0",
         date: "December 2021",
         courseLink: "https://www.udemy.com/course/beginners-guide-to-complete-your-school-assignments/",
-        couponCode: ''
+        couponCode: '680F5A2A4E1B3C1F8741'
     },
     {
         courseName: "One thing to become super successful",
@@ -157,7 +157,7 @@ const courses = [
         rating: "0.0",
         date: "December 2021",
         courseLink: "https://www.udemy.com/course/one-thing-to-become-super-successful/",
-        couponCode: ''
+        couponCode: '2A339CEC7C3AB84D9088'
     },
     // {
     //     courseName: "",
