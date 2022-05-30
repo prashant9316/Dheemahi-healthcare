@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const path = require('path')
 const logger = require('morgan')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
@@ -21,7 +22,7 @@ const corsOpts = {
     credentials: true
 }
 app.use(cors(corsOpts))
-
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(__dirname + '/public'));
@@ -65,11 +66,52 @@ app.get('/blog/2', async(req, res) => {
 })
 
 const BlogRouter = require('./src/routes/blogs')
+const { verifyAdmin } = require('./src/services/verifyAdmin')
 app.use('/', BlogRouter)
 
 
 app.get('/contact', async(req, res) => {
     return res.render('contact')
+})
+
+
+app.get('/admin/login', async(req, res) => {
+    return res.render('admin/login')
+})
+
+
+app.post('/login', async(req, res) => {
+    try {
+        console.log(req.body.email)
+        console.log(req.body.password)
+        let email = req.body.email;
+        let pass = req.body.password;
+        console.log(email, pass)
+        if(email == 'admin@drsanjaykumar.in' && pass == 'Admin@123'){
+            return res.json({
+                AuthToken: process.env.AuthToken,
+                code: 200,
+                status: 200
+            })
+        }else {
+            return res.json({
+                error: 'Failed to login!',
+                code: 401,
+                status: 401
+            })
+        }
+    } catch (error) {
+        return res.json({
+            error: "Server error!",
+            code: 500,
+            status: 500
+        })
+    }
+})
+
+
+app.get('/admin', verifyAdmin, async(req, res) => {
+    return res.render('admin/dashboard')
 })
 
 
